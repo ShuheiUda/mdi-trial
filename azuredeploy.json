@@ -151,11 +151,6 @@
                         "[variables('addressPrefix')]"
                     ]
                 },
-                "dhcpOptions": {
-                    "dnsServers": [
-                        "10.0.0.254"
-                    ]
-                },
                 "subnets": [
                     {
                         "name": "[variables('subnet1Name')]",
@@ -252,7 +247,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                 "fileUris": [
-                    "https://mditrial.blob.core.windows.net/asset/adConfig.ps1?sp=r&st=2024-12-25T05:36:31Z&se=2025-12-25T13:36:31Z&spr=https&sv=2022-11-02&sr=b&sig=1RIYQ53gh4rym9Cs7K2XoeVjoPVfHWyFWFIzhJNLZ8c%3D"
+                    "https://raw.githubusercontent.com/ShuheiUda/mdi-trial/refs/heads/main/adConfig.ps1"
                 ],
                 "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File adConfig.ps1"
                 }
@@ -272,6 +267,9 @@
                 "[resourceId('Microsoft.Network/publicIpAddresses', 'pip16')]"
             ],
             "properties": {
+                "dnsSettings": {
+                    "dnsServers": ["8.8.8.8"]
+                },
                 "ipConfigurations": [
                     {
                         "name": "ipconfig1",
@@ -298,8 +296,7 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]",
-                "[resourceId('Microsoft.Compute/virtualMachines/extensions', 'ADDS', 'ADDS/osConfig')]"
+                "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -345,7 +342,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                 "fileUris": [
-                    "https://mditrial.blob.core.windows.net/asset/osConfig.ps1?sp=r&st=2024-12-25T05:37:22Z&se=2025-12-25T13:37:22Z&spr=https&sv=2022-11-02&sr=b&sig=Dpnk%2FDnQOHop%2B%2BNYo%2F3tUnjW3M6hhS4oODDJskhLShc%3D"
+                    "https://raw.githubusercontent.com/ShuheiUda/mdi-trial/refs/heads/main/osConfig.ps1"
                 ],
                 "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File osConfig.ps1"
                 }
