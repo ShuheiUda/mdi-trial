@@ -1,3 +1,7 @@
+# Start Logging
+Start-Transcript -Path C:\deploy-log.txt
+$DebugPreference = "Continue"
+
 # Create Tools Directory if it does not exist
 $toolsDir = "C:\Tools"
 if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -ItemType Directory}
@@ -92,4 +96,7 @@ $credential = New-Object System.Management.Automation.PSCredential("Administrato
 Add-Computer -DomainName "contoso.com" -Credential $credential -Restart
 
 #サーバーを再起動します
-Restart-Computer 
+Restart-Computer
+
+# Stop Logging
+Stop-Transcript

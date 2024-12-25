@@ -1,3 +1,7 @@
+# Start Logging
+Start-Transcript -Path C:\deploy-log.txt
+$DebugPreference = "Continue"
+
 # Create Tools Directory if it does not exist
 $toolsDir = "C:\Tools"
 if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -ItemType Directory}
@@ -55,7 +59,10 @@ Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 # AD の構成
 Import-Module ADDSDeployment
 $Password = ConvertTo-SecureString "PSSLab!PSSLab!" -AsPlainText -Force
-Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\WINDOWS\NTDS" -DomainMode "Win2025" -DomainName "contoso.com" -DomainNetbiosName "CONTOSO" -ForestMode "Win2025" -InstallDns:$true -LogPath "C:\WINDOWS\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\WINDOWS\SYSVOL" -SafeModeAdministratorPassword $Password -Force:$true
+Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\WINDOWS\NTDS" -DomainMode "Win2016" -DomainName "contoso.com" -DomainNetbiosName "CONTOSO" -ForestMode "Win2016" -InstallDns:$true -LogPath "C:\WINDOWS\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\WINDOWS\SYSVOL" -SafeModeAdministratorPassword $Password -Force:$true
 
 #サーバーを再起動します
 Restart-Computer 
+
+# Stop Logging
+Stop-Transcript
