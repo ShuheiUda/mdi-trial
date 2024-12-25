@@ -84,7 +84,7 @@
             "WindowsServer": {
                 "publisher": "MicrosoftWindowsServer",
                 "offer": "WindowsServer",
-                "sku": "2019-Datacenter",
+                "sku": "2025-Datacenter",
                 "version": "latest"
             },
             "Windows11": {
