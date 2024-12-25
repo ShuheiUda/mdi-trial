@@ -54,7 +54,7 @@ Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 
 # AD の構成
 Import-Module ADDSDeployment
-$Password = ConvertTo-SecureString "PSSLab!PSSLab!"
+$Password = ConvertTo-SecureString "PSSLab!PSSLab!" -AsPlainText -Force
 Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\WINDOWS\NTDS" -DomainMode "Win2025" -DomainName "contoso.com" -DomainNetbiosName "CONTOSO" -ForestMode "Win2025" -InstallDns:$true -LogPath "C:\WINDOWS\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\WINDOWS\SYSVOL" -SafeModeAdministratorPassword $Password -Force:$true
 
 #サーバーを再起動します
