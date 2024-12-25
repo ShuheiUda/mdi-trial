@@ -13,10 +13,7 @@
             "type": "int",
             "defaultValue": 4,
             "minValue": 2,
-            "maxValue": 12,
-            "metadata": {
-                "description": "Number of VMs to deploy, limit 398 since there is an 800 resource limit for a single template deployment"
-            }
+            "maxValue": 15
         },
         "OS": {
             "type": "string",
@@ -252,7 +249,7 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/VirtualMachines', concat('vm', copyindex(1)))]"
+                "[resourceId('Microsoft.Compute/VirtualMachines', concat('myvm', copyindex(1)))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Compute",
