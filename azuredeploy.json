@@ -240,7 +240,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2021-04-01",
-            "name": "[format('ADDS/{0}', 'osConfig')]",
+            "name": "ADDS/osConfig",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/VirtualMachines', 'ADDS')]"
@@ -299,7 +299,7 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]",
-                "[resourceId('Microsoft.Compute/VirtualMachines', 'ADDS')]"
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', 'ADDS/osConfig')]"
             ],
             "properties": {
                 "hardwareProfile": {
