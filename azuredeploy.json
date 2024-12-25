@@ -299,7 +299,7 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]",
-                "[resourceId('Microsoft.Compute/virtualMachines/extensions', 'ADDS/osConfig')]"
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', 'ADDS', 'ADDS/osConfig')]"
             ],
             "properties": {
                 "hardwareProfile": {
