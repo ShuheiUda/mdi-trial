@@ -151,6 +151,11 @@
                         "[variables('addressPrefix')]"
                     ]
                 },
+                "dhcpOptions": {
+                    "dnsServers": [
+                        "10.0.0.254"
+                    ]
+                },
                 "subnets": [
                     {
                         "name": "[variables('subnet1Name')]",
@@ -186,7 +191,8 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "10.0.0.254",
                             "subnet": {
                                 "id": "[variables('subnet1Ref')]"
                             },
@@ -204,7 +210,7 @@
             "apiVersion": "2020-06-01",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', 'nic')]"
+                "[resourceId('Microsoft.Network/networkInterfaces', 'ADDS-nic')]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -217,7 +223,7 @@
                     "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
                 },
                 "storageProfile": {
-                    "imageReference": "[variables('imageReference')['WindwosServer']]",
+                    "imageReference": "[variables('imageReference')['WindowsServer']]",
                     "osDisk": {
                         "createOption": "FromImage"
                     }
@@ -225,7 +231,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic')]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'ADDS-nic')]"
                         }
                     ]
                 }
@@ -246,7 +252,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                 "fileUris": [
-                    "https://raw.githubusercontent.com/ShuheiUda/mdi-trial/master/adConfig.ps1"
+                    "https://mditrial.blob.core.windows.net/asset/adConfig.ps1?sp=r&st=2024-12-25T05:36:31Z&se=2025-12-25T13:36:31Z&spr=https&sv=2022-11-02&sr=b&sig=1RIYQ53gh4rym9Cs7K2XoeVjoPVfHWyFWFIzhJNLZ8c%3D"
                 ],
                 "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File adConfig.ps1"
                 }
@@ -292,7 +298,8 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]",
+                "[resourceId('Microsoft.Compute/VirtualMachines', 'ADDS')]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -338,7 +345,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                 "fileUris": [
-                    "https://raw.githubusercontent.com/ShuheiUda/mdi-trial/master/osConfig.ps1"
+                    "https://mditrial.blob.core.windows.net/asset/osConfig.ps1?sp=r&st=2024-12-25T05:37:22Z&se=2025-12-25T13:37:22Z&spr=https&sv=2022-11-02&sr=b&sig=Dpnk%2FDnQOHop%2B%2BNYo%2F3tUnjW3M6hhS4oODDJskhLShc%3D"
                 ],
                 "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File osConfig.ps1"
                 }

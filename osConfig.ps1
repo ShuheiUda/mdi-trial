@@ -2,6 +2,12 @@
 $toolsDir = "C:\Tools"
 if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -ItemType Directory}
 
+# Exclude the C:\tools folder from Windows Defender scans
+Add-MpPreference -ExclusionPath "C:\tools"
+
+# Install Tor Browser
+winget install --id TorProject.TorBrowser -e
+
 # Sysinternals Suite
 Invoke-WebRequest -OutFile "$toolsDir\SysinternalsSuite.zip" -Uri 'https://download.sysinternals.com/files/SysinternalsSuite.zip' 
 New-Item -Path $toolsDir -Name "SysinternalsSuite" -ItemType Directory
@@ -78,6 +84,12 @@ Set-WinDefaultInputMethodOverride -InputTip "0411:00000411"
 
 #ようこそ画面と新しいユーザーの設定をコピーします
 Copy-UserInternationalSettingsToSystem -welcomescreen $true -newuser $true
+
+# Create a PSCredential object using the domain user and secure password
+$credential = New-Object System.Management.Automation.PSCredential("Administrator", (ConvertTo-SecureString "PSSLab!PSSLab!" -AsPlainText -Force))
+
+# Join the computer to the domain
+Add-Computer -DomainName "contoso.com" -Credential $credential -Restart
 
 #サーバーを再起動します
 Restart-Computer 

@@ -1,6 +1,3 @@
-#AD のインストール
-Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
-
 # Create Tools Directory if it does not exist
 $toolsDir = "C:\Tools"
 if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -ItemType Directory}
@@ -51,6 +48,14 @@ Get-ChildItem -Recurse -Path $toolsDir | Unblock-File -Confirm:$false
 
 # Remove only .zip files from the specified folder
 Get-ChildItem -Path $toolsDir -Filter *.zip -Recurse | Remove-Item -Force
+
+#AD のインストール
+Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
+
+# AD の構成
+Import-Module ADDSDeployment
+$Password = ConvertTo-SecureString "PSSLab!PSSLab!"
+Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\WINDOWS\NTDS" -DomainMode "Win2025" -DomainName "contoso.com" -DomainNetbiosName "CONTOSO" -ForestMode "Win2025" -InstallDns:$true -LogPath "C:\WINDOWS\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\WINDOWS\SYSVOL" -SafeModeAdministratorPassword $Password -Force:$true
 
 #サーバーを再起動します
 Restart-Computer 
