@@ -235,7 +235,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2021-04-01",
-            "name": "ADDS/osConfig",
+            "name": "ADDS/CustomScriptExtension",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/VirtualMachines', 'ADDS')]"
@@ -296,7 +296,8 @@
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', concat('nic', copyIndex(1)))]",
+                "Microsoft.Compute/virtualMachines/ADDS/extensions/CustomScriptExtension"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -326,7 +327,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2021-04-01",
-            "name": "[format('myvm{0}/{1}', copyIndex(1), 'osConfig')]",
+            "name": "[format('myvm{0}/{1}', copyIndex(1), 'CustomScriptExtension')]",
             "location": "[parameters('location')]",
             "copy": {
                 "name": "extensionLoop",
