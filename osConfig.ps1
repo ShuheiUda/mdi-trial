@@ -8,6 +8,7 @@ if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -Ite
 
 # Exclude the C:\tools folder from Windows Defender scans
 Add-MpPreference -ExclusionPath "C:\tools"
+Start-Sleep -Seconds 60
 
 # Install Tor Browser
 winget install --id TorProject.TorBrowser -e
