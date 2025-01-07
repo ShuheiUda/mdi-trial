@@ -8,7 +8,6 @@ if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -Ite
 
 # Exclude the C:\tools folder from Windows Defender scans
 Add-MpPreference -ExclusionPath "C:\tools"
-Start-Sleep -Seconds 60
 
 # Sysinternals Suite
 Invoke-WebRequest -OutFile "$toolsDir\SysinternalsSuite.zip" -Uri 'https://download.sysinternals.com/files/SysinternalsSuite.zip' 
@@ -58,7 +57,7 @@ Get-ChildItem -Recurse -Path $toolsDir | Unblock-File -Confirm:$false
 Get-ChildItem -Path $toolsDir -Filter *.zip -Recurse | Remove-Item -Force
 
 # AD Install
-Start-Sleep -Seconds 60
+Start-Sleep -Seconds 300
 Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 Start-Sleep -Seconds 60
 Import-Module ADDSDeployment
