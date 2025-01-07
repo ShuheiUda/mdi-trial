@@ -2,13 +2,6 @@
 Start-Transcript -Path C:\deploy-log.txt
 $DebugPreference = "Continue"
 
-# Create Tools Directory if it does not exist
-$toolsDir = "C:\Tools"
-if ((Test-Path -Path $toolsDir) -eq $false) {New-Item -Path C:\ -Name Tools -ItemType Directory}
-
-# Exclude the C:\tools folder from Windows Defender scans
-Add-MpPreference -ExclusionPath "C:\tools"
-
 # Remove only .zip files from the specified folder
 Get-ChildItem -Path $toolsDir -Filter *.zip -Recurse | Remove-Item -Force
 
