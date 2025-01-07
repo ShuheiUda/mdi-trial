@@ -61,7 +61,7 @@ Start-Sleep -Seconds 300
 Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 Start-Sleep -Seconds 60
 Import-Module ADDSDeployment
-$Password = ConvertTo-SecureString "P@ssw0rd!" -AsPlainText -Force
+$Password = ConvertTo-SecureString "P@ssw0rd!P@ssw0rd!" -AsPlainText -Force
 Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\WINDOWS\NTDS" -DomainMode "Win2025" -DomainName "contoso.com" -DomainNetbiosName "CONTOSO" -ForestMode "Win2025" -InstallDns:$true -LogPath "C:\WINDOWS\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\WINDOWS\SYSVOL" -SafeModeAdministratorPassword $Password -Force:$true
 
 # Restart
