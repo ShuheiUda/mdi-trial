@@ -36,7 +36,7 @@ Set-WinDefaultInputMethodOverride -InputTip "0411:00000411"
 Copy-UserInternationalSettingsToSystem -welcomescreen $true -newuser $true
 
 # Create a PSCredential object using the domain user and secure password
-$credential = New-Object System.Management.Automation.PSCredential("Administrator", (ConvertTo-SecureString "P@ssw0rd!" -AsPlainText -Force))
+$credential = New-Object System.Management.Automation.PSCredential("ContosoAdmin", (ConvertTo-SecureString "P@ssw0rd!P@ssw0rd!" -AsPlainText -Force))
 
 # Join the computer to the domain
 Add-Computer -DomainName "contoso.com" -Credential $credential -Restart
