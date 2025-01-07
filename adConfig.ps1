@@ -56,15 +56,16 @@ Get-ChildItem -Recurse -Path $toolsDir | Unblock-File -Confirm:$false
 # Remove only .zip files from the specified folder
 Get-ChildItem -Path $toolsDir -Filter *.zip -Recurse | Remove-Item -Force
 
-#AD のインストール
-Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
+# Install Error Debug
+Get-WindowsFeature -name AD-Domain-Services
 
-# AD の構成
+# AD Install
+Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 Import-Module ADDSDeployment
 $Password = ConvertTo-SecureString "P@ssw0rd!" -AsPlainText -Force
 Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath "C:\WINDOWS\NTDS" -DomainMode "Win2025" -DomainName "contoso.com" -DomainNetbiosName "CONTOSO" -ForestMode "Win2025" -InstallDns:$true -LogPath "C:\WINDOWS\NTDS" -NoRebootOnCompletion:$false -SysvolPath "C:\WINDOWS\SYSVOL" -SafeModeAdministratorPassword $Password -Force:$true
 
-#サーバーを再起動します
+# Restart
 Restart-Computer -Force
 
 # Stop Logging
