@@ -4,7 +4,7 @@
     "parameters": {
         "adminUsername": {
             "type": "string",
-            "defaultValue": "localadmin",
+            "defaultValue": "ContosoAdmin",
             "metadata": {
                 "description": "Admin username for VM"
             }
