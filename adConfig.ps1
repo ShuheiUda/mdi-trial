@@ -57,6 +57,7 @@ Get-ChildItem -Recurse -Path $toolsDir | Unblock-File -Confirm:$false
 Get-ChildItem -Path $toolsDir -Filter *.zip -Recurse | Remove-Item -Force
 
 # Install Error Debug
+Start-Sleep -Seconds 300
 Get-WindowsFeature -name AD-Domain-Services
 
 # AD Install
