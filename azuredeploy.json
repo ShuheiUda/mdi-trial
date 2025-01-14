@@ -268,7 +268,7 @@
             ],
             "properties": {
                 "dnsSettings": {
-                    "dnsServers": ["8.8.8.8"]
+                    "dnsServers": ["10.0.0.254"]
                 },
                 "ipConfigurations": [
                     {
@@ -288,7 +288,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[concat('myvm', copyIndex(1))]",
+            "name": "[concat('client', copyIndex(1))]",
             "apiVersion": "2020-06-01",
             "location": "[parameters('location')]",
             "copy": {
@@ -327,14 +327,14 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2021-04-01",
-            "name": "[format('myvm{0}/{1}', copyIndex(1), 'CustomScriptExtension')]",
+            "name": "[format('client{0}/{1}', copyIndex(1), 'CustomScriptExtension')]",
             "location": "[parameters('location')]",
             "copy": {
                 "name": "extensionLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/VirtualMachines', concat('myvm', copyindex(1)))]"
+                "[resourceId('Microsoft.Compute/VirtualMachines', concat('client', copyindex(1)))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Compute",
